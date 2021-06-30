@@ -31,6 +31,7 @@ using API.Interfaces;
 using API.Services; 
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 
 namespace API
 {
@@ -48,6 +49,7 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddIdentityServices(_config);
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -65,8 +67,9 @@ namespace API
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyHeader()
-                                .AllowAnyMethod()
-                                .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
             app.UseAuthentication();
 
@@ -75,6 +78,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }
