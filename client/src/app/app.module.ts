@@ -34,6 +34,7 @@ import { UserManagmentComponent } from './admin/user-managment/user-managment.co
 import { PhotoManagmentComponent } from './admin/photo-managment/photo-managment.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     UserManagmentComponent,
     PhotoManagmentComponent,
     RolesModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,8 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxGalleryModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
